@@ -152,7 +152,7 @@ suite.add(new YUITest.TestCase({
         test.wait(100);
     },
     'test: getJSON': function () {
-        var data = Y.Files.getJSON('input/folders1/yuidoc.json');
+        var data = Y.Files.getJSON(path.join(__dirname, 'input/folders1/yuidoc.json'));
         Assert.isTypeOf('object', data);
         Assert.areSame('yuidoc-root', data.name);
     },
@@ -168,7 +168,7 @@ suite.add(new YUITest.TestCase({
     },
     'test: readFile': function () {
         var test = this;
-        Y.Files.readFile('input/test/test.js', 'utf8', function (err, data) {
+        Y.Files.readFile(path.join(__dirname, 'input/test/test.js'), 'utf8', function (err, data) {
             test.resume(function () {
                 Assert.isNull(err);
             });
