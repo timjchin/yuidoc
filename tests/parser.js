@@ -17,6 +17,12 @@ var suite = new YUITest.TestSuite({
         var json = (new Y.YUIDoc({
             quiet: true,
             paths: ['input/'],
+            digesters: {
+              'customtag': 'return',
+              'customfunction': function (tagname, value, target, block) {
+                target.customfunction = 1;
+              }
+            },
             outdir: './out'
         })).run();
 
@@ -410,6 +416,12 @@ suite.add(new YUITest.TestCase({
         Assert.areSame(item.params[0].props[0].name, 'name');
         Assert.isTrue(item.params[0].props[0].optional);
 
+    }, 
+    'test: custom digester passed as options': function () {
+        var item = this.findByName('customDigester', 'digesterClass');
+        Assert.areEqual(item['customtag']['description'], "Test");
+        Assert.areEqual(item['customtag']['type'], "Type");
+        Assert.areEqual(1, item['customfunction']);
     }
 }));
 
